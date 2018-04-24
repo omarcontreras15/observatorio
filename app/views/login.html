@@ -1,0 +1,102 @@
+<link href="public/css/login.css" rel="stylesheet" type="text/css" media="all" />
+
+<!-- MENU -->
+<div class="banner1">
+    <div class="container">
+        {{MENU}}
+    </div>
+</div>
+<!-- //MENU -->
+<div class="container">
+    <!-- CONTENIDO PAGINA WEB-->
+    <!-- contenido login   -->
+    <div class="div-login">
+        <div class="main">
+            <div class="alert alert-danger alert-white rounded" style="display: none" id="alert-login">
+                <div class="icon">
+                    <img src="public/images/cerrar.png" />
+                </div>
+                <strong>Error!</strong>
+                <span>Usuario y/o contraseña no coinciden.</span>
+            </div>
+
+            <form id="iniciar-sesion" role="form">
+                <input type="hidden" name="mode" value="login">
+                <div class="login-form">
+                    <h2 class="color">Iniciar Sesión</h2>
+
+                    <div class="agileits-top">
+                        <div class="styled-input">
+
+                            <input type="text" name="username" required="" id="input-username" />
+                            <label>Nombre de usuario</label>
+                            <span></span>
+                        </div>
+                        <div class="styled-input">
+                            <input type="password" name="password" id="input-password" required="">
+                            <label>Contraseña</label>
+                            <span></span>
+                        </div>
+                    </div>
+                    <div class="agileits-bottom">
+                        <input type="submit" value="Iniciar sesión">
+                    </div>
+                    <div style="margin-right: 20px">
+                        <p class="text-right">
+                            <a style="color: #002e498a;" href="admin.php?mode=recuperarClave">¿Olvidó su contraseña?</a>
+                        </p>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- Aqui va el js de cada una de las paginas del aplicativo-->
+<script>
+    $(document).ready(function () {
+
+        cargarEventos();
+
+        function cargarEventos() {
+            //funcion para agregar el ajax al submit del formulario
+            $("#iniciar-sesion").on("submit", function (e) {
+                //previene que se envien los datos por la url
+                e.preventDefault();
+                var datos = new FormData(this);
+                //var con la url del archivo php
+                var url = "index.php";
+                //llama a la funcion ajax
+                iniciarSesion(datos, url);
+            });
+        }
+
+        //funcion para iniciar sesion
+        function iniciarSesion(datos, url1) {
+            $.ajax({
+                data: datos,
+                url: url1,
+                type: 'POST',
+                processData: false,
+                contentType: false,
+                //esta funncion se ejecuta cuando el php a terminado de procesar
+                //con el resultado e inserta el resultado en algun elemento html
+                success: function (response) {
+                    if (response) {
+                        window.location = "index.php?mode=formulario-recoleccion-datos";
+                    } else {
+                        $("#input-username").val("");
+                        $("#input-password").val("");
+                        $("#alert-login").show();
+                        //ir hacia arriba en el scrollTop
+                        $('html, body').animate({ scrollTop: 0 }, 'slow')
+                    }
+                }
+            });
+        }
+
+    });
+
+</script>
+</body>
+
+</html>
