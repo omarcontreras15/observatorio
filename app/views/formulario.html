@@ -34,10 +34,8 @@
         </div>
         <hr>
 
-        <form role="form" style="margin-right:50px" id="form-paso1-idea">
-            <input type="hidden" name="mode" value="paso1-idea">
-            <input type="hidden" name="Asesor" value="{{ASESOR}}">
-            <input type="hidden" name="CC" value="{{cl_cedula}}">
+        <form role="form" style="margin-right:50px" id="registro-formulario">
+            <input type="hidden" name="mode" value="registrar-formulario">
             <div class="row setup-content" id="step-1">
                 <div class="col-xs-12">
                     <div class="col-md-12">
@@ -49,13 +47,13 @@
                             <div class="row">
 
                                 <div class="col-md-2">
-                                    <label>Fecha de declaración:</label>
+                                    <label>Fecha:</label>
                                 </div>
                                 <div class="col-md-4">
                                     <input type="text" class="form-control" name="fecha_declaracion" value="{{fecha_declaracion}}" disabled>
                                 </div>
                                 <div class="col-md-2">
-                                    <label>Dane declaración:</label>
+                                    <label>Código DANE:</label>
                                 </div>
                                 <div class="col-md-4">
                                     <input type="text" class="form-control" name="dane_declaracion" value="{{dane_declaracion}}" disabled>
@@ -64,7 +62,7 @@
                             <br>
                             <div class="row">
                                 <div class="col-md-2">
-                                    <label>Zona declaración:</label>
+                                    <label>Zona:</label>
                                 </div>
                                 <div class="col-md-4">
                                     <select data-placeholder="Seleccione la zona de declaracion" name="zona_declaracion" class="form-control chosen-select" tabindex="2">
@@ -75,7 +73,7 @@
 
 
                                 <div class="col-md-2">
-                                    <label>Municipio declaración:</label>
+                                    <label>Municipio:</label>
                                 </div>
                                 <div class="col-md-4">
                                     <input type="text"  disabled="" class="form-control" name="municipio_declaracion" value="{{municipio_declaracion}}">
@@ -144,7 +142,7 @@
 
                             <div class="row">
                                 <div class="col-md-2">
-                                    <label>Fecha de ocurrencia del hecho:</label>
+                                    <label>Fecha de ocurrencia:</label>
                                 </div>
                                 <div class="col-md-4">
                                     <div class='input-group date'>
@@ -155,7 +153,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-2">
-                                    <label>Dane ocurrencia:</label>
+                                    <label>DANE ocurrencia:</label>
                                 </div>
                                 <div class="col-md-4">
                                     <input type="number" name="dane_ocurrencia" class="form-control">
@@ -217,7 +215,7 @@
                         <br>
                         <div class="row">
                             <div class="col-md-2">
-                                <label>Causa del hecho:</label>
+                                <label>Causa:</label>
                             </div>
                             <div class="col-md-4">
                                 <select data-placeholder="Seleccione la causa del hecho" name="causa_hecho" class="form-control chosen-select" tabindex="2">
@@ -537,7 +535,7 @@
                 </div>
                 <br>
 
-                <button onclick="comprobarConexion()" class="btn btn-primary btn-lg pull-right" type="submit">Guardar</button>
+                <button  class="btn btn-primary btn-lg pull-right" type="submit">Guardar</button>
                 <br>
                 <br>
                 <br>
@@ -555,6 +553,15 @@
         //accion al cambiar de hecho en el combo
         $("#hecho").change(function () {
             cargarTipoAccion($("#hecho option:selected").val());
+        });
+
+        //agregamos el evento al formulario
+        $("#registro-formulario").on("submit", function (e) {
+            //previene que se envien los datos por la url
+            e.preventDefault();
+            var datos = new FormData(this);
+            //llama a la funcion ajax
+            registrarFormulario(datos);
         });
 
         var navListItems = $('div.setup-panel div button'),
@@ -612,22 +619,6 @@
     });
 
 
-    function comprobarConexion() {
-        var conn = false;
-        $.ajax({
-            url: 'index.php',
-            async: false,
-            data: { 'tag': 'connection' }
-        })
-            .fail(function () { conn = false; })
-            .done(function () { conn = true; })
-        if (!conn) {
-            alert("Conexión a internet caida, vuelva intentarlo más tarde");
-            event.preventDefault();
-        }
-
-
-    }
 
     function cargarTipoAccion(id_hecho) {
         var datos = {
@@ -641,6 +632,7 @@
             type: 'POST',
             success: function (response) {
                 $('#tipo_accion').empty();
+                console.log(response);
                 if (response != "") {
                     var array = JSON.parse(response);
                     array.forEach(function (element) {
@@ -654,6 +646,32 @@
             }
         });
 
+    }
+
+    function registrarFormulario(datos){
+        $.ajax({
+                data: datos,
+                url: "index.php",
+                type: 'POST',
+                //es necesario colocarle estos 2 elementos al json para enviar informacion de un formulario
+                processData: false,
+                contentType: false,
+                //esta funncion se ejecuta cuando el php a terminado de procesar
+                //con el resultado e inserta el resultado en algun elemento html
+                success: function (response) {
+                    
+                    if (response) {
+                        
+                    } else {
+                       
+                    }
+                    
+                
+                   // setTimeout("location.href='index.php?mode=iniciarSesion'", 3000);
+                },
+                error: function (xhr, status, error) {
+                }
+            });
     }
 
 </script>

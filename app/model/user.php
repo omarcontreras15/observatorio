@@ -33,39 +33,20 @@ class UserModel extends Model {
     }
 
     public function obtenerPaises(){
-        $this->connect();
-        $array= array();
         $consulta = "SELECT * from paises";
-        $query = $this->query($consulta);
-        $this->terminate();
-        while($row = mysqli_fetch_array($query)){
-            array_push($array, $row);
-        }
+        $array=$this->obtenerArrayConsulta($consulta);
         return $array;
     }
 
     public function obtenerHechos(){
-        $this->connect();
-        $array= array();
         $consulta = "SELECT * from hechos";
-        $query = $this->query($consulta);
-        $this->terminate();
-        while($row = mysqli_fetch_array($query)){
-            array_push($array, $row);
-        }
+        $array=$this->obtenerArrayConsulta($consulta);
         return $array;
     }
 
     public function cargarTipoAccion($id_hecho){
-        $this->connect();
-        $array= array();
         $consulta = "SELECT * from tipo_accion where id_hecho=$id_hecho";
-        $query = $this->query($consulta);
-        $this->terminate();
-        while($row = mysqli_fetch_array($query)){
-            $tipo_accion= array('id' =>$row['id'] ,'tipo_accion' =>utf8_encode($row['tipo_accion']));
-            array_push($array, $tipo_accion);
-        }
+        $array=$this->obtenerArrayConsultaUTF8($consulta);
         return $array;
     }
 

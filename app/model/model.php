@@ -25,6 +25,29 @@ class Model {
         mysqli_close($this->connection);
     }
 
+    public function obtenerArrayConsulta($consulta){
+        $array=array();
+        $this->connect();
+        $query = $this->query($consulta);
+        $this->terminate();
+        while($row = mysqli_fetch_array($query)){
+            array_push($array, $row);
+        }
+        return $array;
+    }
+
+    public function obtenerArrayConsultaUTF8($consulta){
+        $array=array();
+        $this->connect();
+        $query = $this->query($consulta);
+        $this->terminate();
+        while($row = mysqli_fetch_array($query)){
+            $row=array_map('utf8_encode', $row);
+            array_push($array, $row);
+        }
+        return $array;
+    }
+
 }
 
 ?>
