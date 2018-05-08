@@ -1,0 +1,310 @@
+<!-- MENU -->
+<div class="banner1">
+        <div class="container">
+            {{MENU}}
+        </div>
+    </div>
+    <div class="container">
+            <div class="container container-fixed">
+                	<div class="col-md-12">
+                            <h2 class="quienes-somos">FORMULARIO #{{id}}</h2>
+                            <ol class="breadcrumb">
+                                    <li><a href="index.php">Inicio</a></li>
+                                    <li><a href="index.php?mode=formularios">Consultar Formularios</a></li>
+                                    <li class="active">Formulario #{{id}}</li>
+                                  </ol>
+                            <fieldset class="contentStyle">
+                                <legend class="titleStyle">INFORMACIÓN DE DECLARACIÓN</legend>
+                                <div class="form-group">
+                                        <div class="row">
+
+                                                <div class="col-md-2">
+                                                    <label>Fecha:</label>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <p>{{fecha_declaracion}}</p>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <label>Usuario:</label>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <p>{{usuario}}</p>
+                                                </div>
+                                            </div>
+                                            <br>
+                                            <div class="row">
+                                                <div class="col-md-2">
+                                                    <label>Zona:</label>
+                                                </div>
+                                                <div class="col-md-4">
+                                                        <p>{{zona_declaracion}}</p>
+                                                </div>
+                
+                                                <div class="col-md-2">
+                                                    <label>Entidad denuncia:</label>
+                                                </div>
+                                                <div class="col-md-4">
+                                                        <p>{{entidad_denuncia}}</p>
+                                                </div>
+                                            </div>
+                                                
+                                            </div>
+                                            <br>
+                                            <div class="row">
+                                                <div class="col-md-2">
+                                                    <label>Municipio:</label>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <p>{{municipio_declaracion}}</p>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <label>Código DANE:</label>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <p>{{codigo_dane}}</p>
+                                                </div>
+                                    <br>
+
+                                </div>
+                            </fieldset>
+
+                            <fieldset class="contentStyle">
+                                    <legend class="titleStyle">INFORMACIÓN DEL HECHO</legend>
+                                    <div class="form-group">
+                                        
+
+                            <div class="row">
+                                    <div class="col-md-2">
+                                        <label>Hecho:</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                            <p>{{hecho}}</p>
+                                    </div>
+                                   
+                                    <div class="col-md-2">
+                                        <label>Tipo de acción:</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                            <p>{{tipo_accion}}</p>
+                                    </div>
+                                </div>
+                                <br>
+    
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <label>Fecha:</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                            <p>{{fecha_ocurrencia}}</p>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label>Municipio:</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <p>{{municipio_ocurrencia}}</p>
+                                    </div>
+                                </div>
+                                <br>
+    
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <label>Zona:</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                            <p>{{zona_ocurrencia}}</p>
+                                    </div>
+    
+                                    <div class="col-md-2">
+                                        <label>Lugar:</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <p>{{lugar_ocurrencia}}</p>
+                                    </div>
+                                </div>
+                                <br>
+                           
+                                    </div>
+                                </fieldset>
+                                <fieldset class="contentStyle">
+                                    <legend class="titleStyle">INFORMACIÓN DE LA VICTIMA</legend>
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            <label>Tipo de documento:</label>
+                                        </div>
+                                        <div class="col-md-4">
+                                               <p>{{tipo_documento_victima}}</p>
+                                        </div>
+                    
+                                        <div class="col-md-2">
+                                            <label>Fecha de nacimiento:</label>
+                                        </div>
+                                        <div class="col-md-4">
+                                                <p>{{fecha_nacimiento_victima}}</p>
+                                        </div>
+                                    </div>
+                                    <br>
+                    
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            <label>Edad:</label>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <p>{{edad_victima}}</p>
+                                        </div>
+                    
+                                        <div class="col-md-2">
+                                            <label>Ciclo vital:</label>
+                                        </div>
+                                        <div class="col-md-4">
+                                                <p>{{ciclo_vida_victima}}</p>
+                                        </div>
+                                    </div>
+                                    <br>
+                    
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            <label>País de nacimiento:</label>
+                                        </div>
+                                        <div class="col-md-4">
+                                              <p>{{pais_nacimiento_victima}}</p>
+                                        </div>
+                    
+                                        <div class="col-md-2">
+                                            <label>Ciudad de nacimiento:</label>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <p>{{ciudad_nacimiento_victima}}</p>
+                                        </div>
+                                    </div>
+                                    <br>
+                    
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            <label>País de residencia:</label>
+                                        </div>
+                                        <div class="col-md-4">
+                                                <p>{{pais_residencia_victima}}</p>
+                                        </div>
+                    
+                                        <div class="col-md-2">
+                                            <label>Estado o ciudad de residencia:</label>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <p>{{ciudad_residencia_victima}}</p>
+                                        </div>
+                                    </div>
+                                    <br>
+                    
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            <label>Dirección de residencia:</label>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <p>{{direccion_residencia_victima}}</p>
+                                        </div>
+                    
+                                        <div class="col-md-2">
+                                            <label>Genero:</label>
+                                        </div>
+                                        <div class="col-md-4">
+                                               <p>{{genero_victima}}</p>
+                                        </div>
+                                    </div>
+                                    <br>
+                    
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            <label>Pertenencia etnica:</label>
+                                        </div>
+                                        <div class="col-md-4">
+                                               <p>{{pertenencia_etnica_victima}}</p>
+                                        </div>
+                    
+                                        <div class="col-md-2">
+                                            <label>Resguardo/consejo comunitario:</label>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <p>{{resguardo_victima}}</p>
+                                        </div>
+                                    </div>
+                                    <br>
+                    
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            <label>Etnia:</label>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <p>{{etnia_victima}}</p>
+                                        </div>
+                    
+                                        <div class="col-md-2">
+                                            <label>Discapacidad:</label>
+                                        </div>
+                                        <div class="col-md-4">
+                                                <p>{{discapacidad_victima}}</p>
+                                        </div>
+                                    </div>
+                                    <br>
+                    
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            <label>Descripción de la discapacidad:</label>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <p>{{descripcion_discapacidad_victima}}</p>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                                <fieldset class="contentStyle">
+                                        <legend class="titleStyle">INFORMACIÓN DEL PRESUNTO AUTOR</legend>
+                                        <div class="row">
+                                                <div class="col-md-2">
+                                                    <label>Presunto Autor:</label>
+                                                </div>
+                                                <div class="col-md-4">
+                                                        <p>{{presunto_autor}}</p>
+                                                </div>
+                            
+                                                <div class="col-md-2">
+                                                    <label>Genero:</label>
+                                                </div>
+                                                <div class="col-md-4">
+                                                       <p>{{genero_autor}}</p>
+                                                </div>
+                                            </div>
+                                            <br>
+                                            <div class="row">
+                                                <div class="col-md-2">
+                                                    <label>Relación con la victima:</label>
+                                                </div>
+                                                <div class="col-md-4">
+                                                        <p>{{relacion_victima}}</p>
+                                                </div>
+                            
+                                                <div class="col-md-2">
+                                                    <label>Pertencia Etnica:</label>
+                                                </div>
+                                                <div class="col-md-4">
+                                                        <p>{{pertenencia_etnica_autor}}</p>
+                                                </div>
+                                            </div>
+                                            <br>
+                                            <div class="row">
+                                                <div class="col-md-2">
+                                                    <label>Resguardo/consejo comunitario:</label>
+                                                </div>
+                                                <div class="col-md-4">
+                                                        <p>{{resguardo_autor}}</p>
+                                                </div>
+                            
+                                                <div class="col-md-2">
+                                                    <label>Etnia:</label>
+                                                </div>
+                                                <div class="col-md-4">
+                                                        <p>{{etnia_autor}}</p>
+                                                </div>
+                                            </div>
+                                    </fieldset>
+
+                            <br><br></div>
+                </div></div>

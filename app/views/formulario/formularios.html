@@ -1,0 +1,194 @@
+<!-- MENU -->
+<div class="banner1">
+    <div class="container">
+        {{MENU}}
+    </div>
+</div>
+<div class="container">
+    <div class="container container-fixed">
+         
+        <h2 class="quienes-somos">Consultar Formularios</h2>
+        <ol class="breadcrumb">
+                <li><a href="index.php">Inicio</a></li>
+                <li class="active">Consultar Formularios</li>
+              </ol>
+        <br>
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <div class="row">
+
+
+
+                    <div class="col-md-7">
+                        <input type="text" class="form-control" id="input-buscar" placeholder="Ingrese su busqueda" onkeyup='buscarFormularios()'>
+                    </div>
+
+                    <div class="col-md-1 text-left">
+                        <button type="button" class="btn btn-default" onclick='buscarFormularios()'>
+                            <span class="glyphicon glyphicon-search"></span> Buscar</button>
+                        <!-- se carga el gif animado cuando se carguen los datos de la base de datos-->
+                        <span id="loader-ajax"></span>
+                        <br>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="btn-group pull-right">
+                            <a href="index.php?mode=descargar-formulario-excel"  target="_blank" class="btn btn-info">
+                                <i style="color:white;" class="fa fa-file-excel-o"></i> Descargar Excel</a>
+                        </div>
+                    </div>
+                    <div id="btn_registrar" class="col-md-2">
+                        <div class="btn-group pull-right">
+                            <a href="index.php?mode=agregar-formulario-recoleccion-datos" class="btn btn-info">
+                                <span style="color:white;" class="glyphicon glyphicon-plus"></span> Agregar Nuevo</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel-body">
+                <div id="resultados"></div>
+                <!-- Carga los datos ajax -->
+                <div class="tablas" id='tabla-formularios'></div>
+                <!-- Carga los datos ajax -->
+            </div>
+
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="public/js/js-pagination.js"></script>
+<script src='public/js/excelexportjs.js'></script>
+
+<script>
+    //cargamos el modelo de la tabla factura
+    var htmlTabla = "";
+    var tipo_user = "{{TIPO_USER}}";
+    jQuery.get('./app/views/formulario/components/tabla-formularios.html', function (data) {
+        htmlTabla = data;
+    });
+    var stringBusqueda = "";
+    //esperemos a que la pagina este completamente cargada para cargar los eventos
+    $(document).ready(function () {
+        //cargamos totas las facturas al terminar de cargar el html
+        buscarFormularios();
+        //verificamos el tipo de usuario, si es admin eliminamos el boton registrar formulario
+        if (tipo_user == 'admin') {
+            $("#btn_registrar").remove();
+        }
+
+    });
+
+
+
+    function cargarPaginacion(totalPag) {
+        //cargar la paginacion e indicarle los numero de paginas
+        var obj = $('#pagination').twbsPagination({
+            totalPages: totalPag,
+            visiblePages: 10,
+            onPageClick: function (event, pagina) {
+                //con este metodo cargamos todos los item que corresponde a cierta pagina
+                cargarPorPagina(pagina);
+            }
+        });
+    }
+
+    function cargarPorPagina(pagina) {
+        $("#datos-tabla-formularios").empty();
+        var datos = {
+            "mode": "cargar-formularios-pagina",
+            "busqueda": stringBusqueda,
+            "pagina": pagina
+
+        };
+        $.ajax({
+            data: datos,
+            url: "index.php",
+            type: 'POST',
+            beforeSend: function () {
+                $("#loader-ajax").html("<img src='public/images/ajax-loader.gif'>Cargando...");
+            },
+            success: function (response) {
+                var html = "";
+                var array = JSON.parse(response);
+                array.forEach(function (element) {
+
+                    html += "<tr><td class='text-center'>" + element["id"] + "</td><td class='text-center'>" + element["fecha_declaracion"] + "</td><td class='text-center'>" + element["zona_declaracion"] + "</td><td class='text-center'>" + element['hecho'] + "</td><td width='14%' ><span class='pull-right'><a href='index.php?mode=descargar-formulario-excel&id=" + element['id'] + "' class='btn btn-default'><i class='fa fa-file-excel-o'></i></a><a href='index.php?mode=ver-formulario&id=" + element['id'] + "' class='btn btn-default'><i class='glyphicon glyphicon-eye-open'></i></a><a href='#' class='btn btn-default' onclick='borrarFormulario(" + element["id"] + ")'><i class='glyphicon glyphicon-trash'></i> </a></span></td></tr>";
+                }, this);
+                $("#datos-tabla-formularios").html(html);
+            },
+            error: function (xhr, status, error) {
+            }
+        });
+        $("#loader-ajax").empty();
+    }
+
+
+
+
+    function buscarFormularios() {
+        stringBusqueda = $("#input-buscar").val();
+        $("#tabla-formularios").html("");
+        var datos = {
+            "mode": "obtener-cantidad-pag-tabla-formularios",
+            "busqueda": stringBusqueda
+
+        };
+        $.ajax({
+            data: datos,
+            url: "index.php",
+            type: 'POST',
+            beforeSend: function () {
+                $("#loader-ajax").html("<img src='public/images/ajax-loader.gif'>Cargando...");
+            },
+            success: function (response) {
+                if (response > 0) {
+                    $("#tabla-formularios").html(htmlTabla);
+                    cargarPaginacion(response);
+                }
+            },
+            error: function (xhr, status, error) {
+            }
+        });
+        $("#loader-ajax").empty();
+    }
+
+
+    function borrarFormulario(id) {
+
+        x0p('¿Desea borrar el formulario?', "Describe la razón", 'input').then(
+    function(data) {
+        if(data.button == 'info') {
+            var datos = {
+                    "mode": "borrar-formulario",
+                    "causa_borrado": data.text,
+                    "id": id
+
+                };
+                $.ajax({
+                    data: datos,
+                    url: "index.php",
+                    type: 'POST',
+                    success: function (response) {
+                        if (response == 1) {
+                            x0p('Exito!',
+                                'El formulario se ha eliminado satisfactoriamente.',
+                                'ok', false);
+                            buscarFormularios();
+                        } else {
+                            x0p('Error!',
+                                'Se ha producido un error en la aplicación por favor intentelo más tarde.',
+                                'error', false);
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        x0p('Error!',
+                            'Se ha producido un error en la aplicación por favor intentelo más tarde.',
+                            'error', false);
+                    }
+                });
+        }
+    });
+
+    
+    }
+
+</script>

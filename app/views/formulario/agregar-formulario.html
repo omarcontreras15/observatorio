@@ -11,6 +11,15 @@
 <div class="container">
     <div class="container container-fixed">
         <h2 class="quienes-somos">Recolección de datos</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="index.php">Inicio</a>
+            </li>
+            <li>
+                <a href="index.php?mode=formularios">Consultar Formularios</a>
+            </li>
+            <li class="active">Recolección de datos</li>
+        </ol>
         <br>
         <div class="stepwizard">
             <div class="stepwizard-row setup-panel">
@@ -56,16 +65,17 @@
                                     <label>Código DANE:</label>
                                 </div>
                                 <div class="col-md-4">
-                                    <input type="text" class="form-control" name="dane_declaracion" value="{{dane_declaracion}}" disabled>
+                                    <input type="text" class="form-control" name="codigo_dane" value="{{codigo_dane}}" disabled>
                                 </div>
                             </div>
                             <br>
                             <div class="row">
                                 <div class="col-md-2">
-                                    <label>Zona:</label>
+                                    <label class="required">Zona:</label>
                                 </div>
                                 <div class="col-md-4">
                                     <select data-placeholder="Seleccione la zona de declaracion" name="zona_declaracion" class="form-control chosen-select" tabindex="2">
+                                        <option></option>
                                         <option value="Urbana">Urbana</option>
                                         <option value="Rural">Rural</option>
                                     </select>
@@ -73,19 +83,20 @@
 
 
                                 <div class="col-md-2">
-                                    <label>Municipio:</label>
+                                    <label class="required">Municipio:</label>
                                 </div>
                                 <div class="col-md-4">
-                                    <input type="text"  disabled="" class="form-control" name="municipio_declaracion" value="{{municipio_declaracion}}">
+                                    <input type="text" class="form-control" name="municipio_declaracion" value="{{municipio_declaracion}}" disabled>
                                 </div>
                             </div>
                             <br>
                             <div class="row">
                                 <div class="col-md-2">
-                                    <label>Entidad denuncia:</label>
+                                    <label class="required">Entidad denuncia:</label>
                                 </div>
                                 <div class="col-md-4">
                                     <select data-placeholder="Seleccione la entidad" name="entidad_denuncia" class="form-control chosen-select" tabindex="2">
+                                        <option></option>
                                         <option value="Policía Nacional">Policía Nacional</option>
                                         <option value="Fiscalía">Fiscalía</option>
                                         <option value="Defensoría">Defensoría</option>
@@ -99,12 +110,16 @@
 
 
                         </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-md-6"></div>
+                            <div class="col-md-6">
+                                <button class="btn btn-primary nextBtn btn-lg pull-right" type="submit">Siguiente</button>
+                            </div>
+                        </div>
+                        <br>
+                        <br>
 
-                        <button class="btn btn-primary nextBtn btn-lg pull-right" type="submit" id="button-form-paso1-idea">Guardar y continuar</button>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
                     </div>
                 </div>
             </div>
@@ -121,20 +136,21 @@
 
                             <div class="row">
                                 <div class="col-md-2">
-                                    <label>Hecho:</label>
+                                    <label class="required">Hecho:</label>
                                 </div>
                                 <div class="col-md-4">
                                     <select data-placeholder="Seleccione el hecho" name="hecho" id="hecho" class="form-control chosen-select" tabindex="2">
+                                        <option></option>
                                         {{HECHOS}}
                                     </select>
                                 </div>
                                 <div class="col-md-2">
-                                    <label>Tipo de acción:</label>
+                                    <label class="required">Tipo de acción:</label>
                                 </div>
                                 <div class="col-md-4">
                                     <select data-placeholder="Seleccione el tipo de acción" id="tipo_accion" name="tipo_accion" class="form-control chosen-select"
                                         tabindex="2">
-
+                                        <option></option>
                                     </select>
                                 </div>
                             </div>
@@ -142,7 +158,7 @@
 
                             <div class="row">
                                 <div class="col-md-2">
-                                    <label>Fecha de ocurrencia:</label>
+                                    <label class="required">Fecha:</label>
                                 </div>
                                 <div class="col-md-4">
                                     <div class='input-group date'>
@@ -153,40 +169,45 @@
                                     </div>
                                 </div>
                                 <div class="col-md-2">
-                                    <label>DANE ocurrencia:</label>
+                                    <label class="required">Municipio:</label>
                                 </div>
                                 <div class="col-md-4">
-                                    <input type="number" name="dane_ocurrencia" class="form-control">
+                                    <select data-placeholder="Seleccione el municipio" name="municipio_ocurrencia" class="form-control chosen-select" tabindex="2">
+                                        <option></option>
+                                        {{MUNICIPIOS}}
+                                    </select>
                                 </div>
                             </div>
                             <br>
 
                             <div class="row">
                                 <div class="col-md-2">
-                                    <label>Zona ocurrencia:</label>
+                                    <label class="required">Zona:</label>
                                 </div>
                                 <div class="col-md-4">
                                     <select data-placeholder="Seleccione la zona de ocurrencia" name="zona_ocurrencia" class="form-control chosen-select" tabindex="2">
+                                        <option></option>
                                         <option value="Urbana">Urbana</option>
                                         <option value="Rural">Rural</option>
                                     </select>
                                 </div>
 
                                 <div class="col-md-2">
-                                    <label>Lugar Ocurrencia:</label>
+                                    <label class="required">Lugar:</label>
                                 </div>
                                 <div class="col-md-4">
-                                    <input type="number" name="lugar_ocurrencia" class="form-control">
+                                    <input type="text" name="lugar_ocurrencia" class="form-control">
                                 </div>
                             </div>
                             <br>
                         </div>
                         <div class="row">
                             <div class="col-md-2">
-                                <label>Ubicación de ocurrencia:</label>
+                                <label class="required">Ubicación:</label>
                             </div>
                             <div class="col-md-4">
                                 <select data-placeholder="Seleccione el tipo de acción" name="ubicacion_ocurrencia" class="form-control chosen-select" tabindex="2">
+                                    <option></option>
                                     <option value="Corregimiento">Corregimiento</option>
                                     <option value="Vereda">Vereda</option>
                                     <option value="Finca">Finca</option>
@@ -197,10 +218,11 @@
                             </div>
 
                             <div class="col-md-2">
-                                <label>Arma o medio:</label>
+                                <label class="required">Arma o medio:</label>
                             </div>
                             <div class="col-md-4">
                                 <select data-placeholder="Seleccione el arma o medio" name="arma_medio" class="form-control chosen-select" tabindex="2">
+                                    <option></option>
                                     <option value="Arma de fuego">Arma de fuego</option>
                                     <option value="Arma blanca/Cortopunzante">Arma blanca/Cortopunzante</option>
                                     <option value="Contundente">Contundente</option>
@@ -215,10 +237,11 @@
                         <br>
                         <div class="row">
                             <div class="col-md-2">
-                                <label>Causa:</label>
+                                <label class="required">Causa:</label>
                             </div>
                             <div class="col-md-4">
-                                <select data-placeholder="Seleccione la causa del hecho" name="causa_hecho" class="form-control chosen-select" tabindex="2">
+                                <select data-placeholder="Seleccione la causa del hecho" name="causa" class="form-control chosen-select" tabindex="2">
+                                    <option></option>
                                     <option value="Culposo">Culposo</option>
                                     <option value="Intolerancia Social">Intolerancia Social</option>
                                     <option value="Maltrato fisico">Maltrato fisico</option>
@@ -233,17 +256,24 @@
                             </div>
 
                             <div class="col-md-2">
-                                <label>Nombre de la ubicación de la ocurrencia:</label>
+                                <label class="required">Nombre de la ubicación de la ocurrencia:</label>
                             </div>
                             <div class="col-md-4">
                                 <input type="text" class="form-control" name="nombre_ubicacion_ocurrencia">
                             </div>
                         </div>
                         <br>
+                        <br>
                     </div>
 
-
-                    <button class="btn btn-primary nextBtn btn-lg pull-right" type="submit" id="button-form-paso2-idea">Guardar y continuar</button>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <button class="btn btn-primary prevBtn btn-lg pull-right" type="submit">Atras</button>
+                        </div>
+                        <div class="col-md-6">
+                            <button class="btn btn-primary nextBtn btn-lg pull-left" type="submit">Siguiente</button>
+                        </div>
+                    </div>
                     <br>
                     <br>
                     <br>
@@ -262,9 +292,10 @@
                         <label>Tipo de documento:</label>
                     </div>
                     <div class="col-md-4">
-                        <select data-placeholder="Seleccione el tipo de documento" name="tipo_documento_victima" class="form-control chosen-select" tabindex="2">
-                            <option value="Regitro Civil">Regitro Civil</option>
-                            <option value="No Informa">No Informa</option>
+                        <select data-placeholder="Seleccione el tipo de documento" name="tipo_documento_victima" class="form-control chosen-select"
+                            tabindex="2">
+                            <option></option>
+                            <option value="Regitro Civil">Registro Civil</option>
                             <option value="Tarjeta de Identidad">Tarjeta de Identidad</option>
                             <option value="Cédula de ciudadanía">Cédula de ciudadanía</option>
                             <option value="Cédula de extranjería">Cédula de extranjería</option>
@@ -275,6 +306,7 @@
                             <option value="Matricula Mercantil">Matricula Mercantil</option>
                             <option value="Número de Identificación Tributaría">Número de Identificación Tributaría</option>
                             <option value="Número Unico de Identificación Personal">Número Unico de Identificación Personal</option>
+                            <option value="No Informa">No Informa</option>
                         </select>
                     </div>
 
@@ -294,19 +326,20 @@
 
                 <div class="row">
                     <div class="col-md-2">
-                        <label>Edad:</label>
+                        <label class="required">Edad:</label>
                     </div>
                     <div class="col-md-4">
                         <input class="form-control" name="edad_victima" type="number" min="1">
                     </div>
 
                     <div class="col-md-2">
-                        <label>Ciclo vital:</label>
+                        <label class="required">Ciclo vital:</label>
                     </div>
                     <div class="col-md-4">
-                        <select data-placeholder="Seleccione el ciclo vital" name="ciclo_vital_victima" class="form-control chosen-select" tabindex="2">
+                        <select data-placeholder="Seleccione el ciclo vital" name="ciclo_vida_victima" class="form-control chosen-select" tabindex="2">
+                            <option></option>
                             <option value="Primera Infancia (0-5 años)">Primera Infancia (0-5 años)</option>
-                            <option value="Infancia (5-12 años)">Infancia (5-12 años)</option>
+                            <option value="Infancia (6-12 años)">Infancia (6-12 años)</option>
                             <option value="Adolescencia (13 -17 años)">Adolescencia (13 -17 años)</option>
                             <option value="Juventud (18-26 años)">Juventud (18-26 años)</option>
                             <option value="Adultez (27-59 años)">Adultez (27-59 años)</option>
@@ -318,16 +351,17 @@
 
                 <div class="row">
                     <div class="col-md-2">
-                        <label>País de nacimiento:</label>
+                        <label class="required">País de nacimiento:</label>
                     </div>
                     <div class="col-md-4">
-                        <select data-placeholder="Seleccione el país de nacimiento" name="pais_nacimiento_victima" class="form-control chosen-select" tabindex="2">
+                        <select data-placeholder="Seleccione el país de nacimiento" name="pais_nacimiento_victima" class="form-control chosen-select"
+                            tabindex="2">
                             {{PAISES}}
                         </select>
                     </div>
 
                     <div class="col-md-2">
-                        <label>Estado o ciudad de nacimiento:</label>
+                        <label class="required">Ciudad de nacimiento:</label>
                     </div>
                     <div class="col-md-4">
                         <input class="form-control" name="ciudad_nacimiento_victima" type="text">
@@ -337,16 +371,17 @@
 
                 <div class="row">
                     <div class="col-md-2">
-                        <label>País de residencia:</label>
+                        <label class="required">País de residencia:</label>
                     </div>
                     <div class="col-md-4">
-                        <select data-placeholder="Seleccione el país de residencia" name="pais_residencia_victima" class="form-control chosen-select" tabindex="2">
+                        <select data-placeholder="Seleccione el país de residencia" name="pais_residencia_victima" class="form-control chosen-select"
+                            tabindex="2">
                             {{PAISES}}
                         </select>
                     </div>
 
                     <div class="col-md-2">
-                        <label>Estado o ciudad de residencia:</label>
+                        <label>Ciudad de residencia:</label>
                     </div>
                     <div class="col-md-4">
                         <input class="form-control" name="ciudad_residencia_victima" type="text">
@@ -356,22 +391,24 @@
 
                 <div class="row">
                     <div class="col-md-2">
-                        <label>Nombre ubicación residencia:</label>
+                        <label class="required">Dirección de residencia:</label>
                     </div>
                     <div class="col-md-4">
-                        <input class="form-control" name="ubicacion_residencia_residencia" type="text">
+                        <input class="form-control" name="direccion_residencia_victima" type="text">
                     </div>
 
                     <div class="col-md-2">
-                        <label>Genero:</label>
+                        <label class="required">Genero:</label>
                     </div>
                     <div class="col-md-4">
                         <select data-placeholder="Seleccione el genero" name="genero_victima" class="form-control chosen-select" tabindex="2">
+                            <option></option>
                             <option value="Mujer">Mujer</option>
                             <option value="Hombre">Hombre</option>
                             <option value="LGBTI (Lesbianas, Gay, Bisexuales, Transexuales, Intersexuales)">LGBTI (Lesbianas, Gay, Bisexuales, Transexuales, Intersexuales)</option>
                             <option value="No Definido">No Definido</option>
                             <option value="No Informa">No Informa</option>
+                            <option value="No Informa">No Normativa</option>
                         </select>
                     </div>
                 </div>
@@ -379,7 +416,7 @@
 
                 <div class="row">
                     <div class="col-md-2">
-                        <label>Pertenencia etnica:</label>
+                        <label class="required">Pertenencia etnica:</label>
                     </div>
                     <div class="col-md-4">
                         <select data-placeholder="Seleccione la pertenencia etnica" name="pertenencia_etnica_victima" class="form-control chosen-select"
@@ -398,7 +435,7 @@
                         <label>Resguardo/consejo comunitario:</label>
                     </div>
                     <div class="col-md-4">
-                        <input class="form-control" name="resguardo-victima" type="text">
+                        <input class="form-control" name="resguardo_victima" type="text">
                     </div>
                 </div>
                 <br>
@@ -408,11 +445,11 @@
                         <label>Etnia:</label>
                     </div>
                     <div class="col-md-4">
-                        <input class="form-control" name="etnia-victima" type="text">
+                        <input class="form-control" name="etnia_victima" type="text">
                     </div>
 
                     <div class="col-md-2">
-                        <label>Discapacidad:</label>
+                        <label class="required">Discapacidad:</label>
                     </div>
                     <div class="col-md-4">
                         <select data-placeholder="Seleccione la discapacidad" name="discapacidad_victima" class="form-control chosen-select" tabindex="2">
@@ -438,7 +475,14 @@
                 <br>
                 <!-- -->
                 <br>
-                <button class="btn btn-primary nextBtn btn-lg pull-right" type="submit" id="button-form-paso3-idea">Guardar y continuar</button>
+                <div class="row">
+                    <div class="col-md-6">
+                        <button class="btn btn-primary prevBtn btn-lg pull-right" type="submit">Atras</button>
+                    </div>
+                    <div class="col-md-6">
+                        <button class="btn btn-primary nextBtn btn-lg pull-left" type="submit">Siguiente</button>
+                    </div>
+                </div>
                 <br>
                 <br>
                 <br>
@@ -454,14 +498,15 @@
                 <hr>
                 <div class="row">
                     <div class="col-md-2">
-                        <label>Presunto Autor:</label>
+                        <label class="required">Presunto Autor:</label>
                     </div>
                     <div class="col-md-4">
                         <select data-placeholder="Seleccione el presunto autor" name="presunto_autor" class="form-control chosen-select" tabindex="2">
+                            <option></option>
                             <option value="Bandas Criminales">Bandas Criminales</option>
                             <option value="Grupos Guerrilleros">Grupos Guerrilleros</option>
                             <option value="Fuerza pública">Fuerza pública</option>
-                            <option value="Empresa">Empresa</option>
+                            <option value="Sector Privado">Sector Privado</option>
                             <option value="Persona, Grupo de Personas o empresa que el corregidor evidencie">Persona, Grupo de Personas o empresa que el corregidor evidencie</option>
                             <option value="Desconocido">Desconocido</option>
                             <option value="Otros">Otros</option>
@@ -469,26 +514,29 @@
                     </div>
 
                     <div class="col-md-2">
-                        <label>Genero:</label>
+                        <label class="required">Genero:</label>
                     </div>
                     <div class="col-md-4">
                         <select data-placeholder="Seleccione el genero" name="genero_autor" class="form-control chosen-select" tabindex="2">
+                            <option></option>
                             <option value="Mujer">Mujer</option>
                             <option value="Hombre">Hombre</option>
                             <option value="LGBTI (Lesbianas, Gay, Bisexuales, Transexuales, Intersexuales)">LGBTI (Lesbianas, Gay, Bisexuales, Transexuales, Intersexuales)</option>
                             <option value="No Definido">No Definido</option>
                             <option value="No Informa">No Informa</option>
+                            <option value="No Informa">No Normativa</option>
                         </select>
                     </div>
                 </div>
                 <br>
                 <div class="row">
                     <div class="col-md-2">
-                        <label>Relación con la victima:</label>
+                        <label class="required">Relación con la victima:</label>
                     </div>
                     <div class="col-md-4">
                         <select data-placeholder="Seleccione la relación con la victima" name="relacion_victima" class="form-control chosen-select"
                             tabindex="2">
+                            <option></option>
                             <option value="Padre">Padre</option>
                             <option value="Madre">Madre</option>
                             <option value="Padrastro/Madrastra">Padrastro/Madrastra</option>
@@ -502,11 +550,12 @@
                     </div>
 
                     <div class="col-md-2">
-                        <label>Pertencia Etnica:</label>
+                        <label class="required">Pertencia Etnica:</label>
                     </div>
                     <div class="col-md-4">
                         <select data-placeholder="Seleccione la pertenencia etnica" name="pertenencia_etnica_autor" class="form-control chosen-select"
                             tabindex="2">
+                            <option></option>
                             <option value="Ninguna">Ninguna</option>
                             <option value="Indigena">Indigena</option>
                             <option value="Gitano(a) ROM">Gitano(a) ROM</option>
@@ -523,7 +572,7 @@
                         <label>Resguardo/consejo comunitario:</label>
                     </div>
                     <div class="col-md-4">
-                        <input class="form-control" name="resguardo-autor" type="text">
+                        <input class="form-control" name="resguardo_autor" type="text">
                     </div>
 
                     <div class="col-md-2">
@@ -534,8 +583,14 @@
                     </div>
                 </div>
                 <br>
-
-                <button  class="btn btn-primary btn-lg pull-right" type="submit">Guardar</button>
+                <div class="row">
+                    <div class="col-md-6">
+                        <button class="btn btn-primary prevBtn btn-lg pull-right" type="submit">Atras</button>
+                    </div>
+                    <div class="col-md-6">
+                        <button class="btn btn-primary btn-lg pull-left" type="submit">Guardar</button>
+                    </div>
+                </div>
                 <br>
                 <br>
                 <br>
@@ -549,7 +604,7 @@
 <script>
     $(document).ready(function () {
         //cargamos los tipos_accion automaticamente al iniciar el html
-        cargarTipoAccion($("#hecho option:selected").val());
+        // cargarTipoAccion($("#hecho option:selected").val());
         //accion al cambiar de hecho en el combo
         $("#hecho").change(function () {
             cargarTipoAccion($("#hecho option:selected").val());
@@ -567,6 +622,7 @@
         var navListItems = $('div.setup-panel div button'),
             allWells = $('.setup-content'),
             allNextBtn = $('.nextBtn');
+        allPrevBtn = $('.prevBtn');
 
         allWells.hide();
 
@@ -606,6 +662,28 @@
                 nextStepWizard.removeAttr('disabled').trigger('click');
         });
 
+        allPrevBtn.click(function (e) {
+            //previene el envio del form
+            e.preventDefault();
+            var curStep = $(this).closest(".setup-content"),
+                curStepBtn = curStep.attr("id"),
+                prevStepWizard = $('div.setup-panel div button[href="#' + curStepBtn + '"]').parent().prev().children("button"),
+                curInputs = curStep.find("input[type='text'],input[type='url']"),
+                isValid = true;
+            $('body,html').animate({ scrollTop: 400 }, 500);
+
+            $(".form-group").removeClass("has-error");
+            for (var i = 0; i < curInputs.length; i++) {
+                if (!curInputs[i].validity.valid) {
+                    isValid = false;
+                    $(curInputs[i]).closest(".form-group").addClass("has-error");
+                }
+            }
+
+            if (isValid)
+                prevStepWizard.removeAttr('disabled').trigger('click');
+        });
+
         $('div.setup-panel div button.btn-primary').trigger('click');
         //activamos el chosen
         $('.form-control.chosen-select', this).chosen({ width: "100%" });
@@ -632,15 +710,17 @@
             type: 'POST',
             success: function (response) {
                 $('#tipo_accion').empty();
-                console.log(response);
                 if (response != "") {
                     var array = JSON.parse(response);
                     array.forEach(function (element) {
                         $('#tipo_accion').append($('<option>', {
-                            value: element['id'],
+                            value: element['tipo_accion'],
                             text: element['tipo_accion']
                         }));
                     }, this);
+                    if (array.length == 0) {
+                        $('#tipo_accion').append($('<option>'));
+                    }
                 }
                 $("#tipo_accion").trigger("chosen:updated");
             }
@@ -648,30 +728,42 @@
 
     }
 
-    function registrarFormulario(datos){
-        $.ajax({
-                data: datos,
-                url: "index.php",
-                type: 'POST',
-                //es necesario colocarle estos 2 elementos al json para enviar informacion de un formulario
-                processData: false,
-                contentType: false,
-                //esta funncion se ejecuta cuando el php a terminado de procesar
-                //con el resultado e inserta el resultado en algun elemento html
-                success: function (response) {
-                    
-                    if (response) {
-                        
-                    } else {
-                       
+    function registrarFormulario(datos) {
+        x0p('', '¿Desea realizar el registro del formulario?', 'warning', function (resul) {
+            if ("cancel" != resul) {
+                $.ajax({
+                    data: datos,
+                    url: "index.php",
+                    type: 'POST',
+                    //es necesario colocarle estos 2 elementos al json para enviar informacion de un formulario
+                    processData: false,
+                    contentType: false,
+                    //esta funncion se ejecuta cuando el php a terminado de procesar
+                    //con el resultado e inserta el resultado en algun elemento html
+                    success: function (response) {
+                        console.log(response);
+                        if (response >= 0) {
+                            x0p('¡Exito!',
+                                'El formulario se ha agregado satisfactoriamente. El ID del formulario es: ' + response,
+                                'ok', false).then(function (data) {
+                                    window.location = "index.php?mode=formularios";
+                                });
+
+                        } else {
+                            x0p('Error!',
+                                'Ha ocurrido un error al momento de registrar el formulario, intentelo más tarde.',
+                                'error', false);
+                        }
+
+                    },
+                    error: function (xhr, status, error) {
+                        x0p('Error!',
+                            'Ha ocurrido un error al momento de registrar el formulario, intentelo más tarde.',
+                            'error', false);
                     }
-                    
-                
-                   // setTimeout("location.href='index.php?mode=iniciarSesion'", 3000);
-                },
-                error: function (xhr, status, error) {
-                }
-            });
+                });
+            }
+        });
     }
 
 </script>

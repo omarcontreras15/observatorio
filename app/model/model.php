@@ -48,6 +48,27 @@ class Model {
         return $array;
     }
 
+    public function obtenerFilaBD($sql){
+        $this->connect();
+        $row=mysqli_fetch_array($this->query($sql));
+        $this->terminate();
+        return $row;
+    }
+
+    public function insert($sql){
+        $this->connect();
+        $insert = $this->query($sql);
+        $this->terminate();
+        return $insert;
+    }
+
+    public function delete($sql){
+        $this->connect();
+        $delete = $this->query($sql);
+        $this->terminate();
+        return $delete;
+    }
+
 }
 
 ?>
