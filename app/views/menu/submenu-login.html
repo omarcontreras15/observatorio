@@ -1,8 +1,11 @@
-<li class="agileinfo_share">
-    <i class="fa fa-user" aria-hidden="true"></i> Bienvenido, {{USERNAME}}
-</li>
-<li class="agileinfo_share">
-    <a href="index.php?mode=cerrar-sesion">Cerrar Sesión
-        <i class="fa fa-sign-out" aria-hidden="true"></i>
-    </a>
-</li>
+
+ <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <i class="fa fa-user" aria-hidden="true"></i> Bienvenido, {{USERNAME}}
+                <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu" style="background-color:#00000085 ">
+                    <li><a href="index.php?mode=cerrar-sesion">Cerrar Sesión
+                            <i class="fa fa-sign-out" aria-hidden="true"></i></a></li>
+                    <li><a href="index.php?mode=restablecer-clave">Cambiar Clave <i class="fa fa-key" aria-hidden="true"></i></a></li>
+            </ul>
+        </li>

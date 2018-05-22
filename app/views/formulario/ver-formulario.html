@@ -9,7 +9,6 @@
                 	<div class="col-md-12">
                             <h2 class="quienes-somos">FORMULARIO #{{id}}</h2>
                             <ol class="breadcrumb">
-                                    <li><a href="index.php">Inicio</a></li>
                                     <li><a href="index.php?mode=formularios">Consultar Formularios</a></li>
                                     <li class="active">Formulario #{{id}}</li>
                                   </ol>
@@ -308,3 +307,10 @@
 
                             <br><br></div>
                 </div></div>
+
+<script>
+ $(document).ready(function () {
+     //ocultamos el menubar del aplicativo para los usuarios registrados
+     $("#menubar").remove();
+ });
+ </script>

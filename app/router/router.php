@@ -57,8 +57,20 @@ class Router{
                                         $this->user->inicioSesion();
                                     }         
                                     break;
+                     case "restablecer-clave":
+                                 if (isset($_SESSION["username_obs"])){       
+                                            $this->user->cargarVistaCambiarClave();
+                                            }else{
+                                                $this->user->inicioSesion();
+                                            }         
+                                            break;
                     case "quienes-somos":
-                        $this->user->cargarQuienesSomos();
+                    if (isset($_SESSION["username_obs"])){
+                        $this->user->cargarFormularios();
+                        }else{
+                            $this->user->cargarQuienesSomos();
+                        } 
+                       
                             break;
                     
                     case "descargar-formulario-excel":
@@ -74,7 +86,12 @@ class Router{
                                 break;
 
                     default:
-                        header("Location:index.php");
+                        
+                        if (isset($_SESSION["username_obs"])){
+                            $this->user->cargarFormularios();
+                            }else{
+                                header("Location:index.php");
+                            } 
                         break;
                 }
             } else if (isset($_POST["mode"])) {
@@ -101,6 +118,9 @@ class Router{
                 case "borrar-formulario":
                     $this->user->borrarFormulario($_POST['id'], $_POST['causa_borrado']);
                     break;
+                case "cambiar-clave":  
+                    $this->user->cambiarClave($_POST['password-vieja'], $_POST['password-nueva']);
+                    break;
                 
 
             default:
@@ -108,7 +128,11 @@ class Router{
                     break;
             }
         } else {
-        	$this->user->cargarIndex();    
+            if (isset($_SESSION["username_obs"])){
+                $this->user->cargarFormularios();
+                }else{
+                    $this->user->cargarIndex();    
+                } 
         }
 
     }

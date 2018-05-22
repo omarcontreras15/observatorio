@@ -1,0 +1,136 @@
+<link href="public/css/login.css" rel="stylesheet" type="text/css" media="all" />
+
+<!-- MENU -->
+<div class="banner1">
+    <div class="container">
+        {{MENU}}
+    </div>
+</div>
+<div class="container">
+        <h2 class="quienes-somos">Cambiar Contraseña</h2>
+        <ol class="breadcrumb">
+                <li><a href="index.php?mode=formularios">Consultar Formularios</a></li>
+                <li class="active">Cambiar Contraseña</li>
+              </ol>
+<!--- bloque de alertas -->
+ <div class="alert alert-success alert-white rounded" style="display: none"  id="ventana-emergente-exito">
+        <button type="button" data-dismiss="alert" aria-hidden="true" class="close">×</button>
+        <div class="icon">
+            <img src="public/images/check.png" />
+        </div>
+        <strong>Exito!</strong> Se ha cambiado su contraseña de manera satisfactoria, Por favor inicie sesión.
+    </div>
+    <div class="alert alert-danger alert-white rounded" style="display: none" id="ventana-emergente-error">
+        <button type="button" data-dismiss="alert" aria-hidden="true" class="close">×</button>
+        <div class="icon">
+            <img src="public/images/cerrar.png" />
+        </div>
+        <strong>Error!</strong><span id="span-error"></span>
+    </div>
+
+    <!--- bloque de alertas -->
+        <div class="row">
+        
+            <form id="cambiar-clave" role="form">
+                    <input type="hidden" name="mode" value="cambiar-clave">
+                    <div class="login-form">
+                        
+    
+                        <div class="agileits-top">
+                            <div class="styled-input">
+    
+                                    <input class="campos-form" id="form-password-vieja" type="password" name="password-vieja" required/>
+                                <label>Ingrese la contraseña actual</label>
+                                <span></span>
+                            </div>
+                            <div class="styled-input">
+                                    <input class="campos-form" id="form-password-nueva-1" type="password" name="password-nueva" required />
+                                <label>Ingrese la nueva contraseña</label>
+                                <span></span>
+                            </div>
+                            <div class="styled-input">
+                                    <input class="campos-form" id="form-password-nueva-2" type="password" name="password" required />
+                                <label>Confirme su nueva contraseña</label>
+                                <span></span>
+                            </div>
+                        </div>
+                        <div class="agileits-bottom">
+                                <input type="submit" value="Guardar">
+                            </div>
+                        
+                    </div>
+                </form>
+        </div>
+    </div>
+    <!--/form-->
+    <script>
+        //ESPACIO PARA COLOCAR EL CODIGO AJAX QUE ENVIE LOS ARCHIVOS
+        //funcion para que se ejecute el script cuando termine de cargar
+        $(document).ready(function () {
+    
+            cargarEventos();
+             //ocultamos el menubar del aplicativo para los usuarios registrados
+            $("#menubar").remove();
+        });
+    
+        function cargarEventos() {
+                //funcion para agregar el ajax al submit del formulario
+                $("#cambiar-clave").on("submit", function (e) {
+                    //previene que se envien los datos por la url
+                    e.preventDefault();
+                    var datos = new FormData(this);
+                    //var con la url del archivo php
+                    var url = "index.php";
+                    //llama a la funcion ajax
+                    if($("#form-password-nueva-1").val()==$("#form-password-vieja").val()){
+                        mostrarMsjError(" Ingrese una nueva contraseña diferente a la actual.");
+                    }else if($("#form-password-nueva-1").val()==$("#form-password-nueva-2").val()){
+                         cambiarClave(datos, url);
+                    }else{
+                       mostrarMsjError(" Las contraseñas nuevas no coinciden. Por favor verifique que las dos contraseñas sean iguales.");
+                    }
+                    
+                });
+    
+              
+            function mostrarMsjError(msj){
+                 $("#span-error").text(msj);
+                $("#ventana-emergente-error").show();
+                borrarCampos(); 
+            }
+            function borrarCampos(){
+                $(".campos-form").each(function(){
+                    $(this).val("");
+                });
+                //ir hacia arriba en el scrollTop
+                $('html, body').animate({scrollTop:0}, 'slow');
+            }
+    
+            //funcion para iniciar sesion
+            function cambiarClave(datos, url1) {
+                var boton = null;
+                $("#ventana-emergente-error").hide();
+                $.ajax({
+                    data: datos,
+                    url: url1,
+                    type: 'POST',
+                    processData: false,
+                    contentType: false,
+                    //esta funncion se ejecuta cuando el php a terminado de procesar
+                    //con el resultado e inserta el resultado en algun elemento html
+                    success: function (response) {
+                        console.log(response);
+                        if(response){  
+                         $("#ventana-emergente-exito").show();
+                         borrarCampos();
+                         setTimeout("location.href='index.php?mode=cerrar-sesion'", 1500);
+                        }else{
+                            mostrarMsjError(" La contraseña que ingreso no coincide con la actual.");
+                        }
+                    }
+                });
+    
+            }
+            }
+    
+    </script>

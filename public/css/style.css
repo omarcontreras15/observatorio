@@ -2841,7 +2841,7 @@ font-size: 16px;
     
 }
  fieldset {
-     box-sizing: border-box;
+  box-sizing: border-box;
   border: none;
   padding:1em;
   margin: 1.5em 0 0;
@@ -2851,3 +2851,15 @@ font-size: 16px;
     content:" *"; 
     color: red;
   }
+
+  .views-row{
+    background:#F1F1F1;
+    padding: 20px 0px 20px 0px;
+    border:1px solid #d9d9d9;
+    -webkit-box-shadow:2px 2px 1px #c1c1c1;
+    -moz-box-shadow:2px 2px 1px #c1c1c1;
+    box-shadow:2px 2px 1px #c1c1c1;
+    display:inline-block;
+    margin-bottom:1em;
+    width:100%;
+    }

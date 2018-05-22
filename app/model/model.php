@@ -69,6 +69,12 @@ class Model {
         return $delete;
     }
 
+    public function update($sql){
+        $this->connect();
+        $update = $this->query($sql);
+        $this->terminate();
+        return $update;
+    }
 }
 
 ?>

@@ -13,9 +13,6 @@
         <h2 class="quienes-somos">Recolección de datos</h2>
         <ol class="breadcrumb">
             <li>
-                <a href="index.php">Inicio</a>
-            </li>
-            <li>
                 <a href="index.php?mode=formularios">Consultar Formularios</a>
             </li>
             <li class="active">Recolección de datos</li>
@@ -43,7 +40,7 @@
         </div>
         <hr>
 
-        <form role="form" style="margin-right:50px" id="registro-formulario">
+        <form role="form" accept-charset="latin1" style="margin-right:50px" id="registro-formulario">
             <input type="hidden" name="mode" value="registrar-formulario">
             <div class="row setup-content" id="step-1">
                 <div class="col-xs-12">
@@ -112,8 +109,11 @@
                         </div>
                         <br>
                         <div class="row">
-                            <div class="col-md-6"></div>
-                            <div class="col-md-6">
+                            <!-- <button class="btn btn-primary prevBtn btn-lg pull-right" type="submit">Atras</button> -->
+                            <div class="col-md-10">
+                                <button style="width: 108px;" class="btn btn-primary prevBtn btn-lg pull-right" type="submit">Atras</button>
+                            </div>
+                            <div class="col-md-2">
                                 <button class="btn btn-primary nextBtn btn-lg pull-right" type="submit">Siguiente</button>
                             </div>
                         </div>
@@ -206,7 +206,7 @@
                                 <label class="required">Ubicación:</label>
                             </div>
                             <div class="col-md-4">
-                                <select data-placeholder="Seleccione el tipo de acción" name="ubicacion_ocurrencia" class="form-control chosen-select" tabindex="2">
+                                <select data-placeholder="Seleccione la ubicación" name="ubicacion_ocurrencia" class="form-control chosen-select" tabindex="2">
                                     <option></option>
                                     <option value="Corregimiento">Corregimiento</option>
                                     <option value="Vereda">Vereda</option>
@@ -265,13 +265,13 @@
                         <br>
                         <br>
                     </div>
-
                     <div class="row">
-                        <div class="col-md-6">
-                            <button class="btn btn-primary prevBtn btn-lg pull-right" type="submit">Atras</button>
+                        <!-- <button class="btn btn-primary prevBtn btn-lg pull-right" type="submit">Atras</button> -->
+                        <div class="col-md-10">
+                            <button style="width: 108px;" class="btn btn-primary prevBtn btn-lg pull-right" type="submit">Atras</button>
                         </div>
-                        <div class="col-md-6">
-                            <button class="btn btn-primary nextBtn btn-lg pull-left" type="submit">Siguiente</button>
+                        <div class="col-md-2">
+                            <button class="btn btn-primary nextBtn btn-lg pull-right" type="submit">Siguiente</button>
                         </div>
                     </div>
                     <br>
@@ -476,11 +476,12 @@
                 <!-- -->
                 <br>
                 <div class="row">
-                    <div class="col-md-6">
-                        <button class="btn btn-primary prevBtn btn-lg pull-right" type="submit">Atras</button>
+                    <!-- <button class="btn btn-primary prevBtn btn-lg pull-right" type="submit">Atras</button> -->
+                    <div class="col-md-10">
+                        <button style="width: 108px;" class="btn btn-primary prevBtn btn-lg pull-right" type="submit">Atras</button>
                     </div>
-                    <div class="col-md-6">
-                        <button class="btn btn-primary nextBtn btn-lg pull-left" type="submit">Siguiente</button>
+                    <div class="col-md-2">
+                        <button class="btn btn-primary nextBtn btn-lg pull-right" type="submit">Siguiente</button>
                     </div>
                 </div>
                 <br>
@@ -584,11 +585,12 @@
                 </div>
                 <br>
                 <div class="row">
-                    <div class="col-md-6">
-                        <button class="btn btn-primary prevBtn btn-lg pull-right" type="submit">Atras</button>
+                    <!-- <button class="btn btn-primary prevBtn btn-lg pull-right" type="submit">Atras</button> -->
+                    <div class="col-md-10">
+                        <button style="width: 108px;" class="btn btn-primary prevBtn btn-lg pull-right" type="submit">Atras</button>
                     </div>
-                    <div class="col-md-6">
-                        <button class="btn btn-primary btn-lg pull-left" type="submit">Guardar</button>
+                    <div class="col-md-2">
+                        <button class="btn btn-primary btn-lg pull-right" type="submit">Guardar</button>
                     </div>
                 </div>
                 <br>
@@ -609,6 +611,9 @@
         $("#hecho").change(function () {
             cargarTipoAccion($("#hecho option:selected").val());
         });
+
+        //ocultamos el menubar del aplicativo para los usuarios registrados
+        $("#menubar").remove();
 
         //agregamos el evento al formulario
         $("#registro-formulario").on("submit", function (e) {

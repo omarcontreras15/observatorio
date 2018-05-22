@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 27-04-2018 a las 14:34:12
+-- Tiempo de generación: 22-05-2018 a las 16:27:13
 -- Versión del servidor: 10.1.29-MariaDB
 -- Versión de PHP: 7.1.12
 
@@ -25,13 +25,15 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `formulario_recepcion_informacion`
+-- Estructura de tabla para la tabla `auditoria_formulario_recepcion_informacion`
 --
 
-CREATE TABLE `formulario_recepcion_informacion` (
+CREATE TABLE `auditoria_formulario_recepcion_informacion` (
   `id` int(11) NOT NULL,
   `usuario` varchar(255) NOT NULL,
-  `fecha_declaracion` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `causa_borrado` text NOT NULL,
+  `fecha_borrado` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `fecha_declaracion` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `zona_declaracion` varchar(10) NOT NULL,
   `codigo_dane` int(11) NOT NULL,
   `municipio_declaracion` varchar(255) NOT NULL,
@@ -39,7 +41,7 @@ CREATE TABLE `formulario_recepcion_informacion` (
   `hecho` varchar(255) NOT NULL,
   `tipo_accion` text NOT NULL,
   `fecha_ocurrencia` date NOT NULL,
-  `municipio_ocurrencia` int(11) NOT NULL,
+  `municipio_ocurrencia` varchar(255) NOT NULL,
   `zona_ocurrencia` varchar(10) NOT NULL,
   `lugar_ocurrencia` text NOT NULL,
   `ubicacion_ocurrencia` varchar(100) NOT NULL,
@@ -54,6 +56,7 @@ CREATE TABLE `formulario_recepcion_informacion` (
   `ciudad_nacimiento_victima` varchar(255) NOT NULL,
   `pais_residencia_victima` varchar(100) NOT NULL,
   `ciudad_residencia_victima` varchar(255) NOT NULL,
+  `direccion_residencia_victima` text NOT NULL,
   `genero_victima` varchar(150) NOT NULL,
   `pertenencia_etnica_victima` varchar(150) NOT NULL,
   `resguardo_victima` varchar(255) NOT NULL,
@@ -67,6 +70,62 @@ CREATE TABLE `formulario_recepcion_informacion` (
   `resguardo_autor` varchar(255) NOT NULL,
   `etnia_autor` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `formulario_recepcion_informacion`
+--
+
+CREATE TABLE `formulario_recepcion_informacion` (
+  `id` int(11) NOT NULL,
+  `usuario` varchar(255) NOT NULL,
+  `fecha_declaracion` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `zona_declaracion` varchar(10) NOT NULL,
+  `codigo_dane` int(11) NOT NULL,
+  `municipio_declaracion` varchar(255) NOT NULL,
+  `entidad_denuncia` varchar(255) NOT NULL,
+  `hecho` varchar(255) NOT NULL,
+  `tipo_accion` text NOT NULL,
+  `fecha_ocurrencia` date NOT NULL,
+  `municipio_ocurrencia` varchar(255) NOT NULL,
+  `zona_ocurrencia` varchar(10) NOT NULL,
+  `lugar_ocurrencia` text NOT NULL,
+  `ubicacion_ocurrencia` varchar(100) NOT NULL,
+  `arma_medio` varchar(100) NOT NULL,
+  `causa` varchar(255) NOT NULL,
+  `nombre_ubicacion_ocurrencia` text NOT NULL,
+  `tipo_documento_victima` varchar(100) NOT NULL,
+  `fecha_nacimiento_victima` date NOT NULL,
+  `edad_victima` int(11) NOT NULL,
+  `ciclo_vida_victima` varchar(100) NOT NULL,
+  `pais_nacimiento_victima` varchar(100) NOT NULL,
+  `ciudad_nacimiento_victima` varchar(255) NOT NULL,
+  `pais_residencia_victima` varchar(100) NOT NULL,
+  `ciudad_residencia_victima` varchar(255) NOT NULL,
+  `direccion_residencia_victima` text NOT NULL,
+  `genero_victima` varchar(150) NOT NULL,
+  `pertenencia_etnica_victima` varchar(150) NOT NULL,
+  `resguardo_victima` varchar(255) NOT NULL,
+  `etnia_victima` varchar(255) NOT NULL,
+  `discapacidad_victima` varchar(150) NOT NULL,
+  `descripcion_discapacidad_victima` text NOT NULL,
+  `presunto_autor` varchar(255) NOT NULL,
+  `genero_autor` varchar(150) NOT NULL,
+  `relacion_victima` varchar(100) NOT NULL,
+  `pertenencia_etnica_autor` varchar(150) NOT NULL,
+  `resguardo_autor` varchar(255) NOT NULL,
+  `etnia_autor` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `formulario_recepcion_informacion`
+--
+
+INSERT INTO `formulario_recepcion_informacion` (`id`, `usuario`, `fecha_declaracion`, `zona_declaracion`, `codigo_dane`, `municipio_declaracion`, `entidad_denuncia`, `hecho`, `tipo_accion`, `fecha_ocurrencia`, `municipio_ocurrencia`, `zona_ocurrencia`, `lugar_ocurrencia`, `ubicacion_ocurrencia`, `arma_medio`, `causa`, `nombre_ubicacion_ocurrencia`, `tipo_documento_victima`, `fecha_nacimiento_victima`, `edad_victima`, `ciclo_vida_victima`, `pais_nacimiento_victima`, `ciudad_nacimiento_victima`, `pais_residencia_victima`, `ciudad_residencia_victima`, `direccion_residencia_victima`, `genero_victima`, `pertenencia_etnica_victima`, `resguardo_victima`, `etnia_victima`, `discapacidad_victima`, `descripcion_discapacidad_victima`, `presunto_autor`, `genero_autor`, `relacion_victima`, `pertenencia_etnica_autor`, `resguardo_autor`, `etnia_autor`) VALUES
+(1, 'gob_cuc', '2018-05-11 16:53:55', 'Urbana', 54001, 'CÃºcuta', 'PolicÃ­a Nacional', 'Violencias de GÃ©nero', 'Violencia EconÃ³mica', '2018-05-11', 'Ãbrego', 'Urbana', 'algÃºn ugar de la Ã±', 'Finca', 'Arma de fuego', 'Intolerancia Social', 'afaf', 'Regitro Civil de DefunciÃ³n', '2018-06-07', 43, '', 'Chile', 'fsdfsd', 'Colombia', 'sdfsdf', 'fdsfsdf', '', 'Ninguna', 'sdfsdfÃ±jjkÃ±jÃ±', 'fsdfsdf', 'Intelectual o cognitiva', 'fghnfghfg', 'Grupos Guerrilleros', 'Hombre', 'Padrastro/Madrastra', 'Indigena', 'vxcvxc', 'tretete'),
+(2, 'gob_cuc', '2018-05-15 14:33:52', 'Rural', 54001, 'CÃºcuta', 'FiscalÃ­a', 'Violencias de GÃ©nero', 'Violencia PsicolÃ³gica', '2018-05-15', 'Ãbrego', 'Rural', '765', 'Finca', 'Contundente', 'Maltrato fisico', 'dsfsfs', 'Tarjeta de Identidad', '2018-05-21', 23, 'Adolescencia (13 -17 aÃ±os)', 'Colombia', 'cÃºcuta', 'Colombia', 'Ã¡brego', 'calle falsa con Ã±', 'Hombre', 'Gitano(a) ROM', '898', 'guayu', 'FÃ­sica', 'accidente de transito ', 'Grupos Guerrilleros', 'LGBTI (Lesbianas, Gay, Bisexuales, Transexuales, Intersexuales)', 'Padrastro/Madrastra', 'Gitano(a) ROM', '', ''),
+(3, 'gob_abr', '2018-05-15 14:46:05', '', 54003, 'Ãbrego', '', '', '', '2018-05-15', '', '', '', '', '', '', '', '', '2018-05-15', 0, '', 'Colombia', '', 'Colombia', '', '', '', 'Ninguna', '', '', 'Ninguna', '', '', '', '', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -106,6 +165,63 @@ INSERT INTO `hechos` (`id`, `nombre`) VALUES
 (22, 'Delitos sexuales'),
 (23, 'Secuestro'),
 (24, 'Lesiones');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `municipios`
+--
+
+CREATE TABLE `municipios` (
+  `cod_dane` int(11) NOT NULL,
+  `nombre` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `municipios`
+--
+
+INSERT INTO `municipios` (`cod_dane`, `nombre`) VALUES
+(54001, 'Cúcuta'),
+(54003, 'Ábrego'),
+(54051, 'Arboledas'),
+(54099, 'Bochalema'),
+(54109, 'Bucarasica'),
+(54125, 'Cácota'),
+(54128, 'Cáchira'),
+(54172, 'Chinácota'),
+(54174, 'Chitagá'),
+(54206, 'Convención'),
+(54223, 'Cucutilla'),
+(54239, 'Durania'),
+(54245, 'El Carmen'),
+(54250, 'El Tarra'),
+(54261, 'El Zulia'),
+(54313, 'Gramalote'),
+(54344, 'Hacarí'),
+(54347, 'Herrán'),
+(54377, 'Labateca'),
+(54385, 'La Esperanza'),
+(54398, 'La Playa'),
+(54405, 'Los Patios'),
+(54418, ' Lourdes'),
+(54480, 'Mutiscua'),
+(54498, ' Ocaña'),
+(54518, 'Pamplona'),
+(54520, 'Pamplonita'),
+(54553, 'Puerto Santander'),
+(54599, ' Ragonvalia'),
+(54660, 'Salazar de Las Palmas'),
+(54670, 'San Calixto'),
+(54673, 'San Cayetano'),
+(54680, 'Santiago'),
+(54720, 'Sardinata'),
+(54743, 'Silos'),
+(54800, ' Teorama'),
+(54810, 'Tibú'),
+(54820, 'Toledo'),
+(54871, 'Villa Caro'),
+(54874, 'Villa del Rosario');
 
 -- --------------------------------------------------------
 
@@ -461,6 +577,7 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`username`, `password`, `tipo`, `cargo`, `codigo_dane`, `municipio_declaracion`) VALUES
+('admin', '9f3349ce16d0d0fe87881d8bb1c6f554684be366', 'admin', 'admin', 0, ''),
 ('cof_abr', '96cb4a28b63c4744de8a7b633de525456ea41c5f', 'user', 'Comisaría de Familia', 54003, 'Ábrego'),
 ('cof_arb', 'ae71a37a250e80c988943ab913156ba22d29db27', 'user', 'Comisaría de Familia', 54051, 'Arboledas'),
 ('cof_boc', 'bdd35c81e69e75fbdc1a9407022eb010711167e4', 'user', 'Comisaría de Familia', 54099, 'Bochalema'),
@@ -627,6 +744,12 @@ INSERT INTO `usuario` (`username`, `password`, `tipo`, `cargo`, `codigo_dane`, `
 --
 
 --
+-- Indices de la tabla `auditoria_formulario_recepcion_informacion`
+--
+ALTER TABLE `auditoria_formulario_recepcion_informacion`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `formulario_recepcion_informacion`
 --
 ALTER TABLE `formulario_recepcion_informacion`
@@ -638,6 +761,12 @@ ALTER TABLE `formulario_recepcion_informacion`
 --
 ALTER TABLE `hechos`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `municipios`
+--
+ALTER TABLE `municipios`
+  ADD PRIMARY KEY (`cod_dane`);
 
 --
 -- Indices de la tabla `paises`
@@ -663,10 +792,16 @@ ALTER TABLE `usuario`
 --
 
 --
+-- AUTO_INCREMENT de la tabla `auditoria_formulario_recepcion_informacion`
+--
+ALTER TABLE `auditoria_formulario_recepcion_informacion`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT de la tabla `formulario_recepcion_informacion`
 --
 ALTER TABLE `formulario_recepcion_informacion`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `hechos`
