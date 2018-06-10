@@ -5,7 +5,7 @@ include_once "./app/router/router.php";
 session_start();
 //verifica que no se haya excedido el tiempo limite inactividad para la sesion
 //si se excedio se destruye la sesion y se redirige al login
-if(isset($_SESSION["username_obs"])){
+if(isset($_SESSION["username_obs"]) || isset($_SESSION["username_obs_estadisticas"])){
     $timeActual=time();
     $diferencia=$timeActual-$_SESSION["ultimoAcceso"];
     $_SESSION["ultimoAcceso"]=$timeActual;

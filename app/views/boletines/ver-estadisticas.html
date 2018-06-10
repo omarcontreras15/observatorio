@@ -1,0 +1,300 @@
+<link href="public/css/chosen.css" rel="stylesheet" type="text/css" media="all" />
+<!-- MENU -->
+<div class="banner1">
+	<div class="container">
+		{{MENU}}
+	</div>
+</div>
+<!-- //MENU -->
+<!-- //banner -->
+<div class="container">
+	<h2 class="quienes-somos">Ver Estadísticas</h2>
+	<ol class="breadcrumb">
+
+		<li class="active">Ver Estadísticas</li>
+	</ol>
+	<br>
+	<div class="panel panel-info">
+		<div class="panel-heading">
+			<div class="row">
+
+				<div class="col-md-7">
+					<input type="text" class="form-control" id="input-buscar" placeholder="Ingrese su busqueda" onkeyup='buscarEstadisticas()'>
+				</div>
+
+				<div class="col-md-1 text-left">
+					<button type="button" class="btn btn-default" onclick='buscarEstadisticas()'>
+						<span class="glyphicon glyphicon-search"></span> Buscar</button>
+					<!-- se carga el gif animado cuando se carguen los datos de la base de datos-->
+					<span id="loader-ajax"></span>
+					<br>
+				</div>
+				<div id="btn_registrar" class="col-md-4">
+					<div class="btn-group pull-right">
+						<a href="#" data-toggle="modal" data-target="#nuevaEstadistica" class="btn btn-info">
+							<span style="color:white;" class="glyphicon glyphicon-plus"></span> Agregar Estadística</a>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="panel-body">
+			<div id="resultados"></div>
+			<!-- Carga los datos ajax -->
+			<div class="tablas" id='tabla-estadisticas'></div>
+			<!-- Carga los datos ajax -->
+		</div>
+
+	</div>
+
+	<!-- Modal -->
+	<div class="modal fade" id="nuevaEstadistica" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close"  data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="myModalLabel">
+						<i class="fa fa-upload" aria-hidden="true"></i>Subir Nueva Estadística</h4>
+				</div>
+				<div class="modal-body">
+					<form class="form-horizontal" enctype='multipart/form-data' id="subir-estadistica">
+						<div id="resultado_ajax"></div>
+						<!-- introduciomos la ruta hacia donde se va procesar el ajax-->
+						<input type="hidden" name="mode" value="subir-estadistica">
+						<div class="form-group">
+							<label for="nombre" class="col-sm-3 control-label">Hecho:</label>
+							<div class="col-sm-8">
+								<select data-placeholder="Seleccione el hecho" name="hecho" id="hechos" class="form-control chosen-select" tabindex="2">
+									<option></option>
+									{{HECHOS}}
+								</select>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">Año</label>
+							<div class="col-sm-8">
+								<select data-placeholder="Seleccione el año" id="anio" name="anio" class="form-control chosen-select" tabindex="2">
+									<option></option>
+									{{ANIOS}}
+								</select>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-3 control-label">Archivo:</label>
+							<div class="col-sm-8">
+								<input class="form-control" type='file' name='estadistica' accept='application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, .pdf'
+								 required>
+
+							</div>
+						</div>
+
+				</div>
+				<div class="modal-footer" id="div-botones">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+					<button type="submit" id="boton-submit" class="btn btn-primary">Subir Estadística</button>
+				</div>
+				<div id="div-resultado"></div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+
+<script type="text/javascript" src="public/js/chosen.jquery.js"></script>
+<script type="text/javascript" src="public/js/js-pagination.js"></script>
+<script>
+	  var htmlTabla = "";
+    jQuery.get('./app/views/boletines/components/tabla-estadisticas.html', function (data) {
+        htmlTabla = data;
+    });
+    var stringBusqueda = "";
+
+	$(document).ready(function () {
+		//ocultamos el menubar del aplicativo para los usuarios registrados
+		$("#menubar").remove();
+		//activamos el chosen
+		$('.form-control.chosen-select', this).chosen({ width: "100%" });
+		cargarEventos();
+		buscarEstadisticas();
+	});
+
+	
+
+	function subirEstadistica(datos, url1) {
+
+		$.ajax({
+			data: datos,
+			url: url1,
+			type: 'POST',
+			processData: false,
+			contentType: false,
+			//esta funcion se ejecuta antes de enviar los datos al php
+			beforeSend: function () {
+				var html = '<div id="floatingCirclesG"><div class="f_circleG" id="frotateG_01"></div><div class="f_circleG" id="frotateG_02"></div><div class="f_circleG" id="frotateG_03"></div><div class="f_circleG" id="frotateG_04"></div><div class="f_circleG" id="frotateG_05"></div><div class="f_circleG" id="frotateG_06"></div><div class="f_circleG" id="frotateG_07"></div><div class="f_circleG" id="frotateG_08"></div></div>';
+				
+				$("#div-resultado").html(html);
+				$("#div-botones").hide();
+			},
+			//esta funncion se ejecuta cuando el php a terminado de procesar
+			//con el resultado e inserta el resultado en algun elemento html
+			success: function (response) {
+				console.log(response);
+				if(response){
+					$("#div-resultado").html("<img style='padding-left:50%; padding-botton:10px;' src='public/images/comprobado.png'>");
+					setTimeout("location.href='index.php?mode=ver-estadisticas'", 2000);
+				}else{
+					$("#div-botones").show();
+					$("#div-resultado").html("");
+					x0p('Error!',
+				'Ya existe la estadistica asociada al hecho y el año.',
+				'error', false);
+				}
+
+			}
+		});
+	}
+
+	function cargarEventos(){
+		//cargar evento del formulario
+	$("#subir-estadistica").on("submit", function (e) {
+		var hechos = $("#hechos").val();
+		var anio = $("#anio").val();
+		e.preventDefault();
+		if (hechos != "" && anio != "") {
+			var form=this;
+			x0p('', '¿Desea subir el archvio?', 'warning', function (resul) {
+			if ("cancel" != resul) {
+			var datos = new FormData(form);
+			//var con la url del archivo php
+			var url = "index.php";
+			//llama a la funcion ajax
+			subirEstadistica(datos, url);
+			}
+
+		});	
+		} else {
+			x0p('Error!',
+				'Por favor seleccione el hecho y el año.',
+				'error', false);
+		}
+	});
+	}
+
+	function cargarPaginacion(totalPag) {
+        //cargar la paginacion e indicarle los numero de paginas
+        var obj = $('#pagination').twbsPagination({
+            totalPages: totalPag,
+            visiblePages: 10,
+            onPageClick: function (event, pagina) {
+                //con este metodo cargamos todos los item que corresponde a cierta pagina
+                cargarPorPagina(pagina);
+            }
+        });
+    }
+
+    function cargarPorPagina(pagina) {
+        $("#datos-tabla-estadistica").empty();
+        var datos = {
+            "mode": "cargar-estadisticas-pagina",
+            "busqueda": stringBusqueda,
+            "pagina": pagina
+
+        };
+        $.ajax({
+            data: datos,
+            url: "index.php",
+            type: 'POST',
+            beforeSend: function () {
+                $("#loader-ajax").html("<img src='public/images/ajax-loader.gif'>Cargando...");
+            },
+            success: function (response) {
+				$("#datos-tabla-estadisticas").hide();
+                var html = "";
+                var array = JSON.parse(response);
+                array.forEach(function (element) {
+
+                    html += "<tr><td class='text-center'>" + element["nombre_hecho"] + "</td><td class='text-center'>" + element["anio"] + "</td><td width='14%' ><span class='pull-right'><a  target='_blank' href='"+element['url_archivo']+"' class='btn btn-default'><i class='fa fa-download' aria-hidden='true'></i></i></a><a href='#' class='btn btn-default' onclick='borrarEstadisticas("+element['id_hecho']+","+element['anio']+")'><i class='glyphicon glyphicon-trash'></i> </a></span></td></tr>";
+                }, this);
+               
+               
+			
+			$("#datos-tabla-estadisticas").html(html);
+            },
+            error: function (xhr, status, error) {
+            }
+        });
+        $("#loader-ajax").empty();
+    }
+
+
+
+
+    function buscarEstadisticas() {
+        stringBusqueda = $("#input-buscar").val();
+        $("#tabla-estadisticas").html("");
+        var datos = {
+            "mode": "obtener-cantidad-pag-tabla-estadisticas",
+            "busqueda": stringBusqueda
+
+        };
+        $.ajax({
+            data: datos,
+            url: "index.php",
+            type: 'POST',
+            beforeSend: function () {
+                $("#loader-ajax").html("<img src='public/images/ajax-loader.gif'>Cargando...");
+            },
+            success: function (response) {
+                if (response > 0) {
+                    $("#tabla-estadisticas").html(htmlTabla);
+                    cargarPaginacion(response);
+                }
+            },
+            error: function (xhr, status, error) {
+            }
+        });
+        $("#loader-ajax").empty();
+    }
+
+
+    function borrarEstadisticas(id_hecho, anio) {
+		
+		x0p('', '¿Desea borrar el archivo?', 'warning', function (resul) {
+			var datos = {
+                    "mode": "borrar-estadisticas",
+                    "id_hecho": id_hecho,
+					"anio":anio
+
+                };
+                $.ajax({
+                    data: datos,
+                    url: "index.php",
+                    type: 'POST',
+                    success: function (response) {
+						console.log(response);
+                        if (response) {
+                            x0p('Exito!',
+                                'El archivo se ha eliminado satisfactoriamente.',
+                                'ok', false);
+                            buscarEstadisticas();
+                        } else {
+                            x0p('Error!',
+                                'Se ha producido un error en la aplicación por favor intentelo más tarde.',
+                                'error', false);
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        x0p('Error!',
+                            'Se ha producido un error en la aplicación por favor intentelo más tarde.',
+                            'error', false);
+                    }
+                });
+		});	
+          
+    }
+
+</script>

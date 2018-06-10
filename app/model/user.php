@@ -10,10 +10,18 @@ class UserModel extends Model {
         $query = $this->query($consulta);
         $this->terminate();
         while($row = mysqli_fetch_array($query)){
-            //agrega el id a la session
-            $_SESSION["username_obs"] = $row["username"];
-            //agrega la hora en la que inicio sesion
-            $_SESSION["ultimoAcceso"] = time();
+        
+            if($row['tipo']=='admin' || $row['tipo']=='user'){
+                //agrega el id a la session
+                $_SESSION["username_obs"] = $row["username"];
+                //agrega la hora en la que inicio sesion
+                $_SESSION["ultimoAcceso"] = time();
+            }else if($row['tipo']=='estadisticas'){
+                //agrega el id a la session
+                $_SESSION["username_obs_estadisticas"] = $row["username"];
+                //agrega la hora en la que inicio sesion
+                $_SESSION["ultimoAcceso"] = time();
+            }
             return true;
         }
         return false;

@@ -1,0 +1,106 @@
+<link href="public/css/chosen.css" rel="stylesheet" type="text/css" media="all" />
+<!-- MENU -->
+<div class="banner1">
+    <div class="container">
+        {{MENU}}
+    </div>
+</div>
+<!-- //MENU -->
+<!-- //banner -->
+<div class="container">
+    <h2 class="quienes-somos">Estadística delictiva</h2>
+    <ol class="breadcrumb">
+        <li>
+            <a href="index.php">Inicio</a>
+        </li>
+        <li class="active">Estadística delictiva</li>
+    </ol>
+    <div class="col-md-12">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <div class="col-md-12 ">
+                <div class="parrafo text-justify">
+                    <div class="img-responsive text-center"><img src="public/images/img-estadisticas.jpg" height="300px"/></div><br>
+                    <p>Podrá encontrar información relacionada con los delitos de: homicidio, homicidio en accidente tránsito, lesiones en accidente de tránsito, lesiones personales, hurto a comercio, hurto de automotores, hurto de celulares, hurto a personas, hurto a residencias, hurto de motocicletas, piratería terrestre, Hurto a cabezas de ganado (abigeato), hurto a entidades financieras, secuestro, extorsión, terrorismo,  delitos sexuales, violencia intrafamiliar y amenazas; dicha información se encuentra desagregada por variables de tiempo, modo y lugar. Además es información preliminar y se encuentra sujeta a variación.</p>
+                    <br>
+                    <p>Los datos publicados corresponden a consolidados de los Delitos de Impacto del Departamento, así mismo la Actividad Operativa realizada por la Policía Nacional. Para información estadística adicional, puede enviar una solicitud al correo <a href="maito:observatorio@nortedesantander.gov.co">observatorio@nortedesantander.gov.co</a> y su respuesta será emitida dentro de los 15 días hábiles siguientes.</p>
+                </div><br>
+                </div>
+                
+                <div class="col-md-12 ">
+                    <div class="col-md-4">
+                        <strong>Delito de Impacto</strong>
+                    </div>
+                    <div class="col-md-4">
+                        <strong>Año</strong>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="col-md-4">
+                        <select data-placeholder="Seleccione el hecho" name="hecho" id="hechos" class="form-control chosen-select" tabindex="2">
+                            <option></option>
+                            {{HECHOS}}
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <select select data-placeholder="Seleccione el año" class="form-control chosen-select" tabindex="2" id="anio" name="anio">
+                            <option></option>
+                            {{ANIOS}}
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <a class="btn btn-info" onclick="buscarEstadisticas()">
+                            <i class="fa fa-search" aria-hidden="true"></i> Buscar</a>
+                    </div>
+                    <div class="col-md-12">
+                        <p>Seleccione cualquier filtro y haga click en "Buscar" para ver los resultados</p>
+                    </div>
+                    <div class="col-md-12">
+                            <div id="div-archivo"></div>
+                        </div>
+                   
+                </div>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+
+   
+    
+</div>
+
+<script type="text/javascript" src="public/js/chosen.jquery.js"></script>
+<script>
+  
+    $(document).ready(function () {
+        //activamos el chosen
+        $('.form-control.chosen-select', this).chosen({ width: "100%" });
+    });
+
+
+    function buscarEstadisticas() {
+        var hecho = $("#hechos").val();
+        var anio = $("#anio").val();
+      
+        var datos = {
+            "mode": "buscar-estadistica",
+            "id_hecho": hecho,
+            "anio":anio
+
+        };
+        $.ajax({
+            data: datos,
+            url: "index.php",
+            type: 'POST',
+            success: function (response) {
+				console.log(response);
+                if(response!=""){
+                    $("#div-archivo").html('<a href="'+response+'" class="btn btn-info"><i class="fa fa-download" aria-hidden="true"></i> Descargar</a>');
+                }else{
+                    $("#div-archivo").html("<b>No existe la estadistica buscada...</b>");
+                }
+                
+            }
+        });
+        
+    }
+</script>

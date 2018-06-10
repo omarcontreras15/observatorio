@@ -115,6 +115,7 @@
                     html += "<tr><td class='text-center'>" + element["id"] + "</td><td class='text-center'>" + element["usuario"] + "</td><td class='text-center'>" + element["fecha_declaracion"] + "</td><td class='text-center'>" + element["zona_declaracion"] + "</td><td class='text-center'>" + element['hecho'] + "</td><td width='14%' ><span class='pull-right'><a href='index.php?mode=descargar-formulario-excel&id=" + element['id'] + "' class='btn btn-default'><i class='fa fa-file-excel-o'></i></a><a href='index.php?mode=ver-formulario&id=" + element['id'] + "' class='btn btn-default'><i class='glyphicon glyphicon-eye-open'></i></a><a href='#' class='btn btn-default' onclick='borrarFormulario(" + element["id"] + ")'><i class='glyphicon glyphicon-trash'></i> </a></span></td></tr>";
                 }, this);
                
+              
                 $("#datos-tabla-formularios").html(html);
             },
             error: function (xhr, status, error) {

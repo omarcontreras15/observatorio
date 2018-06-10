@@ -8,6 +8,7 @@ class User extends Controller {
 
     private $userModel;
     private $view;
+    private $num_formularios_pagina;
 
 
     public function __construct() {
